@@ -5,15 +5,15 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 const LogIn = () => {
     const handleLogIn = e => {
         e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        signInWithEmailAndPassword(auth, email, password)
-            .then(result => {
-                console.log(result.user)
-            })
-            .catch(error => {
-                console.log(error.message)
-            })
+        // const email = e.target.email.value;
+        // const password = e.target.password.value;
+        // signInWithEmailAndPassword(auth, email, password)
+        //     .then(result => {
+        //         console.log(result.user)
+        //     })
+        //     .catch(error => {
+        //         console.log(error.message)
+        //     })
     }
     return (
         // <div className='flex justify-center pt-30'>

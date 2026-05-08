@@ -1,20 +1,21 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router';
-import auth from '../../firebase/firebase.init';
+import { AuthContext } from '../../providers/AuthProvider';
 const Register = () => {
+    const { createUser } = useContext(AuthContext);
     const handleRegister = (e) => {
         e.preventDefault();
         const userName = e.target.userName.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        createUserWithEmailAndPassword(auth, email, password)
+        createUser(email, password)
             .then(result => {
                 console.log(result.user)
             })
             .catch(error => {
                 console.log('Error:', error.message)
             })
+
     }
     return (
         <div className='flex justify-center pt-30'>
