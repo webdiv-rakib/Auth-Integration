@@ -13,9 +13,8 @@ const Register = () => {
                 console.log(result.user)
             })
             .catch(error => {
-                console.log('Error:', error.message)
+                console.log(error.message)
             })
-
     }
     return (
         <div className='flex justify-center pt-30'>
