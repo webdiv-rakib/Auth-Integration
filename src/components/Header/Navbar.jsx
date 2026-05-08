@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router'
+import { AuthContext } from '../../providers/AuthProvider';
 const Navbar = () => {
+    const { name } = useContext(AuthContext);
+    console.log(name);
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
@@ -34,6 +37,7 @@ const Navbar = () => {
             <div className="navbar-end">
                 <Link to='/login'><a className="btn">Log In</a></Link>
                 <Link to='/register'><a className="btn">Register</a></Link>
+                <a href="">{name}</a>
             </div>
         </div>
     );
