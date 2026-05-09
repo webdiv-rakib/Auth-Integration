@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { AuthContext } from '../../providers/AuthProvider';
 const LogIn = () => {
-    const { signInUser } = useContext(AuthContext)
+    const navigate = useNavigate();
+    const { signInUser, signInWithGoogle } = useContext(AuthContext)
     const handleLogIn = e => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -10,10 +11,23 @@ const LogIn = () => {
         signInUser(email, password)
             .then(result => {
                 console.log(result.user)
-                console.log('Login Successful')
+                e.target.reset();
+                navigate('/')
             })
             .catch(error => {
                 console.log('Error:', error.message)
+            })
+    }
+
+    // google sign in
+    const handleGooglelSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user)
+                navigate('/')
+            })
+            .catch(error => {
+                console.log(error.message)
             })
     }
     return (
@@ -58,10 +72,9 @@ const LogIn = () => {
                         <h2 className="text-4xl text-gray-900 font-medium">Sign in</h2>
                         <p className="text-sm text-gray-500/90 mt-3">Welcome back! Please sign in to continue</p>
 
-                        <button type="button" className="btn w-full mt-8 bg-gray-500/10 flex items-center justify-center h-12 rounded-full">
+                        <button onClick={handleGooglelSignIn} type="button" className="btn w-full mt-8 bg-gray-500/10 flex items-center justify-center h-12 rounded-full">
                             <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg" alt="googleLogo" />
                         </button>
-
                         <div className="flex items-center gap-4 w-full my-5">
                             <div className="w-full h-px bg-gray-300/90"></div>
                             <p className="w-full text-nowrap text-sm text-gray-500/90">or sign in with email</p>
