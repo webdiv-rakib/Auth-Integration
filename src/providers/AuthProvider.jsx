@@ -6,19 +6,25 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const name = 'potato alu mia'
+
+    // to prevent log in but reloading page went into log in page
+    const [loading, setLoading] = useState(true);
+
     //to create new user
     const createUser = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     //to login
     const signInUser = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     //to sign out 
     const signOutUser = () => {
+        setLoading(true)
         return signOut(auth)
     }
 
@@ -26,7 +32,8 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('current user', currentUser)
-            setUser(currentUser)
+            setUser(currentUser);
+            setLoading(false);
         })
         return () => {
             unSubscribe();
@@ -47,7 +54,7 @@ const AuthProvider = ({ children }) => {
 
     const authInfo = {
         user,
-        name,
+        loading,
         createUser,
         signInUser,
         signOutUser
